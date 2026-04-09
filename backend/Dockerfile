@@ -4,7 +4,7 @@ ADD requirement.txt /app/requirement.txt
 
 RUN pip install -r /app/requirement.txt
 
-ADD . .
+COPY . .
 
 WORKDIR /app
 
