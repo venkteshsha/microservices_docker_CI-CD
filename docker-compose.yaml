@@ -1,29 +1,22 @@
-version: "3.6"
+version: "3.8"
 
 services:
   backend:
-    build: ./backend
-    hostname: backend-host
-    volumes:
-      - ./backend:/app
+    image: venkteshsha/micro-backend
+    container_name: backend_app
+    restart: always
     ports:
-      - "8000:8000"
-    networks:
-      - micro-network
+      - "5000:5000"
+    environment:
+      - DB_HOST=your-db-host
+      - DB_USER=username
+      - DB_PASS=password
 
   frontend:
-    build: ./frontend
-    hostname: frontend-host
-    volumes:
-      - ./frontend:/app
-    environment:
-      - BACKEND_URL=http://backend-host:8000/api
+    image: venkteshsha/micro-frontend
+    container_name: frontend_app
+    restart: always
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
-    networks:
-      - micro-network
-
-networks:
-  micro-network:
